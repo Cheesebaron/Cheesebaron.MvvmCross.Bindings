@@ -95,7 +95,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Page_SimpleViewPagerView.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SimpleViewPagerItem.axml">
       <SubType>AndroidResource</SubType>

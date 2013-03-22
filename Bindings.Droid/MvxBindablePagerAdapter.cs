@@ -1,5 +1,12 @@
 // MvxBindablePagerAdapter.cs
-// (c) Copyright Tomasz Cielecki http://ostebaronen.dk
+// (c) Copyright 2013 Tomasz Cielecki http://ostebaronen.dk
+//
+// Derivative of MvxBindablePagerAdapter.cs by Steve Dunford
+// http://slodge.blogspot.com/2013/02/binding-to-androids-horizontal-pager.html
+// which is a derivative of MvxBindableListAdapter.cs from the
+// MvvmCross project by Stuart Lodge
+// https://github.com/slodge/MvvmCross/blob/vnext/Cirrious/Cirrious.MvvmCross.Binding.Droid/Views/MvxBindableListAdapter.cs
+//
 // Licensed using Microsoft Public License (Ms-PL)
 // Full License description can be found in the LICENSE
 // file.
