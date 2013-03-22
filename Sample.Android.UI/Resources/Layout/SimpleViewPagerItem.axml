@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:local="http://schemas.android.com/apk/res/sample.droid.ui"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <TextView
+    android:id="@+id/name"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20dp"
+    android:textStyle="bold"
+    local:MvxBind="Text Name" />
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18dp"
+    local:MvxBind="Text Description" />
+</LinearLayout>
