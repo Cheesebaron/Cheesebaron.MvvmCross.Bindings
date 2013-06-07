@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Cirrious.MvvmCross.Commands;
-using Cirrious.MvvmCross.Platform.Diagnostics;
+using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
 namespace Sample.Core.ViewModels
@@ -34,7 +33,7 @@ namespace Sample.Core.ViewModels
 
         public ICommand PageChanged
         {
-            get { return new MvxRelayCommand<int>(ShowPageChanged); }
+            get { return new MvxCommand<int>(ShowPageChanged); }
         }
     }
 }

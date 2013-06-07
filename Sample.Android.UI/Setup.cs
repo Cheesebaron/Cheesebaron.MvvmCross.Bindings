@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 using Android.Content;
-using Cirrious.MvvmCross.Application;
-using Cirrious.MvvmCross.Binding.Droid;
+using Cirrious.MvvmCross.Droid.Platform;
+using Cirrious.MvvmCross.ViewModels;
 using Sample.Core;
 
 namespace Sample.Droid.UI
 {
     public class Setup
-        : MvxBaseAndroidBindingSetup
+        : MvxAndroidSetup
     {
         public Setup(Context applicationContext)
             : base(applicationContext)
         {
         }
 
-        protected override MvxApplication CreateApp()
+        protected override IMvxApplication CreateApp()
         {
             return new App();
         }

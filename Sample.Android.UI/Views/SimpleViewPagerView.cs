@@ -1,13 +1,19 @@
 ﻿using Android.App;
-using Cirrious.MvvmCross.Binding.Droid.Views;
 using Sample.Core.ViewModels;
+using Cirrious.MvvmCross.Droid.Views;
 
 namespace Sample.Droid.UI.Views
 {
     [Activity(Label = "ViewPager!!!", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
     public class ViewPagerShizzleView
-        : MvxBindingActivityView<SimpleListViewModel>
+        : MvxActivity
     {
+        public new SimpleListViewModel ViewModel
+        {
+            get { return (SimpleListViewModel)base.ViewModel; }
+            set { base.ViewModel = value; }
+        }
+
         protected override void OnViewModelSet()
         {
             SetContentView(Resource.Layout.Page_SimpleViewPagerView);

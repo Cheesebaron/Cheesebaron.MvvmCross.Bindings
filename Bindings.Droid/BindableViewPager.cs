@@ -18,7 +18,6 @@ using System.Windows.Input;
 using Android.Content;
 using Android.Util;
 using Cirrious.MvvmCross.Binding.Attributes;
-using Cirrious.MvvmCross.Binding.Droid;
 using Cirrious.MvvmCross.Binding.Droid.Views;
 
 namespace Cheesebaron.MvvmCross.Bindings.Droid
@@ -30,13 +29,11 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             : this(context, attrs, new MvxBindablePagerAdapter(context))
         { }
 
+
         public BindableViewPager(Context context, IAttributeSet attrs, MvxBindablePagerAdapter adapter)
             : base(context, attrs)
         {
-            var itemTemplateId = MvxBindableListViewHelpers.ReadAttributeValue(
-                context, attrs, 
-                MvxAndroidBindingResource.Instance.BindableListViewStylableGroupId, 
-                MvxAndroidBindingResource.Instance.BindableListItemTemplateId);
+            var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId(context, attrs);
             adapter.ItemTemplateId = itemTemplateId;
             Adapter = adapter;
             SetUpEventListeners();

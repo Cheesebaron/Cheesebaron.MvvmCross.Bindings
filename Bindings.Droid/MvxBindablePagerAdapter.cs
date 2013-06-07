@@ -13,35 +13,43 @@
 // 
 // Project Lead - Tomasz Cielecli, @Cheesebaron, tomasz@ostebaronen.dk
 
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using Android.Content;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using Cirrious.CrossCore.Exceptions;
+using Cirrious.CrossCore.Platform;
+using Cirrious.CrossCore.WeakSubscription;
 using Cirrious.MvvmCross.Binding;
 using Cirrious.MvvmCross.Binding.Attributes;
-using Cirrious.MvvmCross.Binding.Droid.Interfaces.Views;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
 using Cirrious.MvvmCross.Binding.ExtensionMethods;
-using Cirrious.MvvmCross.Exceptions;
-using Cirrious.MvvmCross.Interfaces.Platform.Diagnostics;
 
 namespace Cheesebaron.MvvmCross.Bindings.Droid
 {
     public class MvxBindablePagerAdapter
         : PagerAdapter
     {
-        private readonly IMvxBindingActivity _bindingActivity;
+        private readonly IMvxAndroidBindingContext _bindingContext;
         private readonly Context _context;
         private int _itemTemplateId;
         private IEnumerable _itemsSource;
+        private IDisposable _subscription;
 
         public MvxBindablePagerAdapter(Context context)
+            : this(context, MvxAndroidBindingContextHelpers.Current())
+        {
+        }
+
+        public MvxBindablePagerAdapter(Context context, IMvxAndroidBindingContext bindingContext)
         {
             _context = context;
-            _bindingActivity = context as IMvxBindingActivity;
-            if (_bindingActivity == null)
+            _bindingContext = bindingContext;
+            if (_bindingContext == null)
                 throw new MvxException(
                     "MvxBindableListView can only be used within a Context which supports IMvxBindingActivity");
             SimpleViewLayoutId = Android.Resource.Layout.SimpleListItem1;
@@ -52,9 +60,9 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             get { return _context; }
         }
 
-        protected IMvxBindingActivity BindingActivity
+        protected IMvxAndroidBindingContext BindingContext
         {
-            get { return _bindingActivity; }
+            get { return _bindingContext; }
         }
 
         public int SimpleViewLayoutId { get; set; }
@@ -90,16 +98,20 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
         {
             if (_itemsSource == value)
                 return;
-            var existingObservable = _itemsSource as INotifyCollectionChanged;
-            if (existingObservable != null)
-                existingObservable.CollectionChanged -= OnItemsSourceCollectionChanged;
+            
+            if (_subscription != null)
+            {
+                _subscription.Dispose();
+                _subscription = null;
+            }
+
             _itemsSource = value;
             if (_itemsSource != null && !(_itemsSource is IList))
                 MvxBindingTrace.Trace(MvxTraceLevel.Warning,
                                       "Binding to IEnumerable rather than IList - this can be inefficient, especially for large lists");
             var newObservable = _itemsSource as INotifyCollectionChanged;
             if (newObservable != null)
-                newObservable.CollectionChanged += OnItemsSourceCollectionChanged;
+                _subscription = newObservable.WeakSubscribe(OnItemsSourceCollectionChanged);
             NotifyDataSetChanged();
         }
 
@@ -170,7 +182,7 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
 
         protected virtual View CreateSimpleView(object source)
         {
-            var view = _bindingActivity.NonBindingInflate(SimpleViewLayoutId, null);
+            var view = _bindingContext.LayoutInflater.LayoutInflater.Inflate(SimpleViewLayoutId, null);
             BindSimpleView(view, source);
             return view;
         }
@@ -189,7 +201,7 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             }
 
             // we have a templateid so lets use bind and inflate on it :)
-            var viewToUse = convertView as IMvxBindableListItemView;
+            var viewToUse = convertView as IMvxListItemView;
             if (viewToUse != null)
                 if (viewToUse.TemplateId != templateId)
                     viewToUse = null;
@@ -202,14 +214,14 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             return viewToUse as View;
         }
 
-        protected virtual void BindBindableView(object source, IMvxBindableListItemView viewToUse)
+        protected virtual void BindBindableView(object source, IMvxListItemView viewToUse)
         {
-            viewToUse.BindTo(source);
+            viewToUse.DataContext = source;
         }
 
-        protected virtual MvxBindableListItemView CreateBindableView(object source, int templateId)
+        protected virtual MvxListItemView CreateBindableView(object dataContext, int templateId)
         {
-            return new MvxBindableListItemView(_context, _bindingActivity, templateId, source);
+            return new MvxListItemView(_context, _bindingContext.LayoutInflater, dataContext, templateId);
         }
 
         public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
