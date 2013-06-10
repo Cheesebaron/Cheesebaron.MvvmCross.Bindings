@@ -26,12 +26,22 @@ namespace Sample.Core.ViewModels
                 Items.Add(new SimpleViewModel { Name = "Item " + i, Description = "I am Item " + i });
         }
 
+        private static void ShowItemPageChanged(SimpleViewModel toPage)
+        {
+            MvxTrace.TaggedTrace("SimpleListViewModel", "Page changed to {0}", toPage.Name);
+        }
+
+        public ICommand ItemPageChangedCommand
+        {
+            get { return new MvxCommand<SimpleViewModel>(ShowItemPageChanged); }
+        }
+
         private static void ShowPageChanged(int toPage)
         {
             MvxTrace.TaggedTrace("SimpleListViewModel", "Page changed to {0}", toPage);
         }
 
-        public ICommand PageChanged
+        public ICommand PageChangedCommand
         {
             get { return new MvxCommand<int>(ShowPageChanged); }
         }

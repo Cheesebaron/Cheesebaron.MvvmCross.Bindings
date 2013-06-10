@@ -6,5 +6,5 @@
   android:layout_width="fill_parent"
   android:layout_height="match_parent"
   local:MvxItemTemplate="@layout/simpleviewpageritem"
-  local:MvxBind="ItemsSource Items; PageSelected PageChanged"
+  local:MvxBind="ItemsSource Items; ItemPageSelected ItemPageChangedCommand; PageSelected PageChangedCommand"
   />

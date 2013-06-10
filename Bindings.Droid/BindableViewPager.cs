@@ -35,7 +35,6 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId(context, attrs);
             adapter.ItemTemplateId = itemTemplateId;
             Adapter = adapter;
-            SetUpEventListeners();
         }
 
         public new MvxBindablePagerAdapter Adapter
@@ -70,31 +69,64 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             set { Adapter.ItemTemplateId = value; }
         }
 
-        private void SetUpEventListeners()
+        private ICommand _itemPageSelected;
+        public ICommand ItemPageSelected
         {
-            base.PageSelected += (sender, args) => ExecuteCommand(PageSelected, args.P0);
-            base.Click += (sender, args) => ExecuteCommand(Click, null);
-            base.LongClick += (sender, args) => ExecuteCommand(LongClick, null);
+            get { return _itemPageSelected; }
+            set { _itemPageSelected = value; if (_itemPageSelected != null) EnsureItemPageSelectedOverloaded(); }
         }
 
-        public new ICommand PageSelected { get; set; }
-        public new ICommand Click { get; set; }
-        public new ICommand LongClick { get; set; }
-
-        protected void ExecuteCommand(ICommand command, int? position)
+        private bool _itemPageSelectedOverloaded;
+        private void EnsureItemPageSelectedOverloaded()
         {
-            if (null == command) return;
+            if (_itemPageSelectedOverloaded)
+                return;
 
-            if (position.HasValue)
-            {
-                if (!command.CanExecute(position.Value)) return;
-                command.Execute(position.Value);    
-            }
-            else
-            {
-                if (!command.CanExecute(null)) return;
-                command.Execute(null);
-            }
+            _itemPageSelectedOverloaded = true;
+            base.PageSelected += (sender, args) => ExecuteCommandOnItem(ItemPageSelected, args.P0);
+        }
+
+        protected virtual void ExecuteCommandOnItem(ICommand command, int position)
+        {
+            if (command == null)
+                return;
+
+            var item = Adapter.GetRawItem(position);
+            if (item == null)
+                return;
+
+            if (!command.CanExecute(item))
+                return;
+
+            command.Execute(item);
+        }
+
+        private ICommand _pageSelected;
+        public new ICommand PageSelected
+        {
+            get { return _pageSelected; }
+            set { _pageSelected = value; if (_pageSelected != null) EnsurePageSelectedOverloaded(); }
+        }
+
+        private bool _pageSelectedOverloaded;
+        private void EnsurePageSelectedOverloaded()
+        {
+            if (_pageSelectedOverloaded)
+                return;
+
+            _pageSelectedOverloaded = true;
+            base.PageSelected += (sender, args) => ExecuteCommand(PageSelected, args.P0);
+        }
+
+        protected virtual void ExecuteCommand(ICommand command, int toPage)
+        {
+            if (command == null)
+                return;
+
+            if (!command.CanExecute(toPage))
+                return;
+
+            command.Execute(toPage);
         }
     } 
 }

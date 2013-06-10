@@ -143,15 +143,6 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
                 return null;
             }
 
-            // 15 Oct 2012 - this position check removed as it's inefficient, especially for IEnumerable based collections
-            /*
-            if (position < 0 || position >= Count)
-            {
-                MvxBindingTrace.Trace(MvxTraceLevel.Error, "GetView called with invalid Position - zero indexed {0} out of {1}", position, Count);
-                return null;
-            }
-            */
-
             var source = GetRawItem(position);
 
             return GetBindableView(convertView, source, templateId);
