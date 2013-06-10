@@ -49,6 +49,9 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows">
+      <HintPath>..\MvvmCross-Binaries\VS2012\bin\Debug\Mvx\Droid\System.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>

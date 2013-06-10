@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<BindableViewPager
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:local="http://schemas.android.com/apk/res/sample.droid.ui"
-  android:orientation="vertical"
+  xmlns:local="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/viewPagerView"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  <cmbd.BindableViewPager
-    android:id="@+id/horizListView"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    local:MvxItemTemplate="@layout/simpleviewpageritem"
-    local:MvxBind="ItemsSource Items; PageSelected PageChanged"
-    />
-</LinearLayout>
+  android:layout_height="match_parent"
+  local:MvxItemTemplate="@layout/simpleviewpageritem"
+  local:MvxBind="ItemsSource Items; PageSelected PageChanged"
+  />

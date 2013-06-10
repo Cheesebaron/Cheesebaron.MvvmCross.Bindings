@@ -9,15 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: Android.Runtime.ResourceDesignerAttribute("Sample.Droid.UI.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Sample.Droid.UI.Resource", IsApplication=true)]
 
 namespace Sample.Droid.UI
 {
 	
 	
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("Novell.MonoDroid.Build.Tasks", "1.0.0.0")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
 	public partial class Resource
 	{
+		
+		static Resource()
+		{
+			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+		}
 		
 		public static void UpdateIdValues()
 		{
@@ -29,17 +34,25 @@ namespace Sample.Droid.UI
 			// aapt resource value: 0x7f010000
 			public const int MvxBind = 2130771968;
 			
-			// aapt resource value: 0x7f010002
-			public const int MvxDropDownItemTemplate = 2130771970;
-			
 			// aapt resource value: 0x7f010004
-			public const int MvxHttpSource = 2130771972;
-			
-			// aapt resource value: 0x7f010001
-			public const int MvxItemTemplate = 2130771969;
+			public const int MvxDropDownItemTemplate = 2130771972;
 			
 			// aapt resource value: 0x7f010003
-			public const int MvxSpinnerTemplate = 2130771971;
+			public const int MvxItemTemplate = 2130771971;
+			
+			// aapt resource value: 0x7f010001
+			public const int MvxLang = 2130771969;
+			
+			// aapt resource value: 0x7f010005
+			public const int MvxSource = 2130771973;
+			
+			// aapt resource value: 0x7f010002
+			public const int MvxTemplate = 2130771970;
+			
+			static Attribute()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private Attribute()
 			{
@@ -52,6 +65,11 @@ namespace Sample.Droid.UI
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			static Drawable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
 			private Drawable()
 			{
 			}
@@ -60,29 +78,31 @@ namespace Sample.Droid.UI
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int MvxBindableListItemTagUnique = 2130968577;
-			
 			// aapt resource value: 0x7f040000
 			public const int MvxBindingTagUnique = 2130968576;
 			
-			// aapt resource value: 0x7f040004
-			public const int description = 2130968580;
+			// aapt resource value: 0x7f040003
+			public const int description = 2130968579;
 			
 			// aapt resource value: 0x7f040002
-			public const int horizListView = 2130968578;
+			public const int name = 2130968578;
 			
-			// aapt resource value: 0x7f040003
-			public const int name = 2130968579;
+			// aapt resource value: 0x7f040004
+			public const int textView1 = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int textView1 = 2130968581;
+			public const int textView2 = 2130968581;
 			
 			// aapt resource value: 0x7f040006
-			public const int textView2 = 2130968582;
+			public const int textView3 = 2130968582;
 			
-			// aapt resource value: 0x7f040007
-			public const int textView3 = 2130968583;
+			// aapt resource value: 0x7f040001
+			public const int viewPagerView = 2130968577;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private Id()
 			{
@@ -101,6 +121,11 @@ namespace Sample.Droid.UI
 			// aapt resource value: 0x7f030002
 			public const int SplashScreen = 2130903042;
 			
+			static Layout()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
 			private Layout()
 			{
 			}
@@ -115,6 +140,11 @@ namespace Sample.Droid.UI
 			// aapt resource value: 0x7f050000
 			public const int Hello = 2131034112;
 			
+			static String()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
 			private String()
 			{
 			}
@@ -123,33 +153,42 @@ namespace Sample.Droid.UI
 		public partial class Styleable
 		{
 			
-			public static int[] MvxBindableListView = new int[] {
-					2130771969,
-					2130771970};
-			
-			// aapt resource value: 1
-			public const int MvxBindableListView_MvxDropDownItemTemplate = 1;
-			
-			// aapt resource value: 0
-			public const int MvxBindableListView_MvxItemTemplate = 0;
-			
-			public static int[] MvxBindableSpinner = new int[] {
-					2130771971};
-			
-			// aapt resource value: 0
-			public const int MvxBindableSpinner_MvxSpinnerTemplate = 0;
-			
 			public static int[] MvxBinding = new int[] {
-					2130771968};
+					2130771968,
+					2130771969};
 			
 			// aapt resource value: 0
 			public const int MvxBinding_MvxBind = 0;
 			
-			public static int[] MvxHttpImageView = new int[] {
-					2130771972};
+			// aapt resource value: 1
+			public const int MvxBinding_MvxLang = 1;
+			
+			public static int[] MvxControl = new int[] {
+					2130771970};
 			
 			// aapt resource value: 0
-			public const int MvxHttpImageView_MvxHttpSource = 0;
+			public const int MvxControl_MvxTemplate = 0;
+			
+			public static int[] MvxImageView = new int[] {
+					2130771973};
+			
+			// aapt resource value: 0
+			public const int MvxImageView_MvxSource = 0;
+			
+			public static int[] MvxListView = new int[] {
+					2130771971,
+					2130771972};
+			
+			// aapt resource value: 1
+			public const int MvxListView_MvxDropDownItemTemplate = 1;
+			
+			// aapt resource value: 0
+			public const int MvxListView_MvxItemTemplate = 0;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private Styleable()
 			{

@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Cheesebaron.MvvmCross.Bindings.Droid;
 using Sample.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Views;
 
@@ -17,6 +18,8 @@ namespace Sample.Droid.UI.Views
         protected override void OnViewModelSet()
         {
             SetContentView(Resource.Layout.Page_SimpleViewPagerView);
+
+            var pager = FindViewById<BindableViewPager>(Resource.Id.viewPagerView);
         }
     }
 }

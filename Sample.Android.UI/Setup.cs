@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Android.Content;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
@@ -19,13 +20,13 @@ namespace Sample.Droid.UI
             return new App();
         }
 
-        protected override IDictionary<string, string> ViewNamespaceAbbreviations
+        protected override IList<Assembly> AndroidViewAssemblies
         {
-            get
+            get 
             {
-                var abbreviations = base.ViewNamespaceAbbreviations;
-                abbreviations["cmbd"] = "Cheesebaron.MvvmCross.Bindings.Droid";
-                return abbreviations;
+                var assemblies = base.AndroidViewAssemblies;
+                assemblies.Add(typeof(Cheesebaron.MvvmCross.Bindings.Droid.BindableViewPager).Assembly);
+                return assemblies;
             }
         }
     }

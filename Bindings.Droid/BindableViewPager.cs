@@ -29,7 +29,6 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
             : this(context, attrs, new MvxBindablePagerAdapter(context))
         { }
 
-
         public BindableViewPager(Context context, IAttributeSet attrs, MvxBindablePagerAdapter adapter)
             : base(context, attrs)
         {
