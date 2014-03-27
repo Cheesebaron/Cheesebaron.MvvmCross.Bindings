@@ -40,6 +40,8 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
         private IEnumerable _itemsSource;
         private IDisposable _subscription;
 
+        public bool ReloadAllOnDataSetChange { get; set; }
+
         public MvxBindablePagerAdapter(Context context)
             : this(context, MvxAndroidBindingContextHelpers.Current())
         {
@@ -53,6 +55,7 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
                 throw new MvxException(
                     "MvxBindableListView can only be used within a Context which supports IMvxBindingActivity");
             SimpleViewLayoutId = Android.Resource.Layout.SimpleListItem1;
+            ReloadAllOnDataSetChange = true; // default is to reload all
         }
 
         protected Context Context
@@ -234,6 +237,15 @@ namespace Cheesebaron.MvvmCross.Bindings.Droid
         public override bool IsViewFromObject(View p0, Java.Lang.Object p1)
         {
             return p0 == p1;
+        }
+        
+        // this as a simple non-performant fix for non-updating views - see http://stackoverflow.com/a/7287121/373321        
+        public override int GetItemPosition(Java.Lang.Object obj)
+        {
+ 	         if (ReloadAllOnDataSetChange)
+ 	             return PagerAdapter.PositionNone;
+ 	             
+ 	         return base.GetItemPosition(obj); 	         
         }
     }
 }
